@@ -67,7 +67,13 @@ using namespace std;
 //     Node satu{42, NULL, NULL};
 //     preorder(&satu);      // mencetak:  42
 // =============================================================================
-void preorder(const Node* root) {
+void preorder(const Node *root) {
+  if (root == nullptr)
+    return;
+
+  cout << root->data << " ";
+  preorder(root->left);
+  preorder(root->right);
 }
 
 // =============================================================================
@@ -90,7 +96,13 @@ void preorder(const Node* root) {
 //
 //     inorder(NULL);     // tidak mencetak apa pun
 // =============================================================================
-void inorder(const Node* root) {
+void inorder(const Node *root) {
+  if (root == nullptr)
+    return;
+
+  inorder(root->left);
+  cout << root->data << " ";
+  inorder(root->right);
 }
 
 // =============================================================================
@@ -114,7 +126,13 @@ void inorder(const Node* root) {
 //
 //     postorder(NULL);   // tidak mencetak apa pun
 // =============================================================================
-void postorder(const Node* root) {
+void postorder(const Node *root) {
+  if (root == nullptr)
+    return;
+
+  postorder(root->left);
+  postorder(root->right);
+  cout << root->data << " ";
 }
 
 // =============================================================================
@@ -140,7 +158,21 @@ void postorder(const Node* root) {
 //     clear(root);              // tree menjadi kosong
 //     clear(root);              // aman, tidak terjadi apa-apa
 // =============================================================================
-void clear(Node*& root) {
+void clear(Node *&root) {
+  if (root == nullptr)
+    return;
+
+  if (root->left != nullptr) {
+    clear(root->left);
+    delete root->left;
+    root->left = nullptr;
+  }
+
+  if (root->right != nullptr) {
+    clear(root->right);
+    delete root->right;
+    root->right = nullptr;
+  }
 }
 
 // =============================================================================
@@ -177,7 +209,18 @@ void clear(Node*& root) {
 //      ╱                         (hanya node 3; node 5 dan 4 masing-masing
 //     3                           masih punya satu cabang)
 // =============================================================================
-int jumlahDaun(const Node *root) { return 0; }
+int jumlahDaun(const Node *root) {
+  if (root == nullptr)
+    return 0;
+
+  if (root->left == nullptr && root->right == nullptr)
+    return 1;
+  int sum = 0;
+  sum += jumlahDaun(root->left);
+  sum += jumlahDaun(root->right);
+
+  return sum;
+}
 
 // =============================================================================
 // MAIN() — program Anda sendiri. TIDAK dinilai, bebas diubah.
