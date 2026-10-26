@@ -173,6 +173,8 @@ void clear(Node *&root) {
     delete root->right;
     root->right = nullptr;
   }
+
+  root = nullptr;
 }
 
 // =============================================================================
